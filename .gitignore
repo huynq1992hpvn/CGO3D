@@ -1,0 +1,12 @@
+# Ignore Unity library
+Library/
+
+# Ignore stored metadata files
+*.meta
+
+# Ignore build artifacts
+Build/
+
+# Ignore temporary files
+Temp/
+ 
