@@ -11,7 +11,10 @@ public class CharacterMove : MonoBehaviour
     public float boostspeed = 40;
     public float currentSpeed;
     public float jumpForce = 10;
-        private void Start()
+    public ColorType PlayerColor;
+    public GameObject brickPrefab;
+
+    private void Start()
     {
         currentSpeed = speed;
     }
@@ -48,5 +51,29 @@ public class CharacterMove : MonoBehaviour
         {
             isGrounded = true; 
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Brick"))
+            
+        {
+            var brick = other.GetComponent<Brick>();
+            if (brick != null)
+            {
+                var colorBrick = brick.brickColor;
+                if (colorBrick == PlayerColor)
+                {
+                    Debug.Log("Collide with same color");
+                    Destroy(other.gameObject);
+                    SpawnNewBrick();
+                }
+            }
+            
+        }
+    }
+    private void SpawnNewBrick()
+    {
+        Vector3 spawnPosition = transform.position; 
+        Instantiate(brickPrefab, spawnPosition, Quaternion.identity); 
     }
 }
